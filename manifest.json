@@ -1,0 +1,7 @@
+{
+  "name": "mbh-conversation-list",
+  "short_name": "mbh-conversation-list",
+  "description": "Conversation#index action for MBH",
+  "start_url": "/",
+  "display": "standalone"
+}

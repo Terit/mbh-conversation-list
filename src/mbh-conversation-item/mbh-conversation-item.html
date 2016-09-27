@@ -1,0 +1,120 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-image/iron-image.html'>
+<link rel='import' href='../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+
+<dom-module id="mbh-conversation-item">
+  <template>
+    <style>
+      a {
+        text-decoration: none;
+        color: #333333;
+      }
+
+      a:hover {
+        text-decoration: none;
+        color: #808080;
+      }
+
+      p {
+        margin: 0.71429rem 0;
+        line-height: 150%;
+      }
+
+      iron-image {
+        height: 45px;
+        width: 45px;
+        display: block;
+        float: left;
+        border-radius: 5px;
+        background-color: lightgray;
+      }
+
+      .flex-horiz {
+        @apply(--layout-horizontal);
+      }
+
+      .middle {
+        padding-left: 5px;
+        @apply(--layout-flex-2);
+      }
+
+      .text-small {
+        color: #808080;
+        font-size: 80%;
+        font-weight: normal;
+      }
+
+      .sent-time {
+        @apply(--layout-end-justified);
+      }
+
+      .icon-clock {
+        font-family: 'mbh';
+      }
+      .icon-clock:before {
+        content: "";
+        font-size: 14px;
+        height: 14px;
+      }
+    </style>
+
+    <a href="/conversations/{{id}}">
+      <li class='flex-horiz'>
+        <iron-image src={{avatar}} sizing="contain" preload fade></iron-image>
+        <div class='middle'>
+          <span class="text-small">
+            {{recipient}}
+          </span>
+          <span class='flex-horiz'>
+            <p>You:&nbsp;</p>
+            <p>{{message}}</p>
+          </span>
+        </div>
+        <div class='sent-time text-small'>
+          <i class='icon-clock'></i>
+          {{formatedTime}}
+        </div>
+      </li>
+    </a>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'mbh-conversation-item',
+
+      properties: {
+        id: Number,
+        recipient: String,
+        avatar: String,
+        message: String,
+        sentTime: Number,
+        formatedTime: {
+          type: Number,
+          computed: 'computeLocalTime(sentTime)'
+        }
+      },
+
+      computeLocalTime: function(time) {
+        var seconds = Math.floor((new Date() - time) / 1000) + 600;
+
+        var interval = Math.floor(seconds / 31536000);
+
+        if (interval >= 1) return "about " + interval + " years ago";
+
+        interval = Math.floor(seconds / 2592000);
+        if (interval >= 1) return "about " + interval + " months ago";
+
+        interval = Math.floor(seconds / 86400);
+        if (interval >= 1) return "about " + interval + " days ago";
+
+        interval = Math.floor(seconds / 3600);
+        if (interval >= 1) return "about " + interval + " hours ago";
+
+        interval = Math.floor(seconds / 60);
+        if (interval >= 1) return interval + " minutes ago";
+
+        return Math.floor(seconds) + " seconds ago";
+      }
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,82 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-list/iron-list.html'>
+<link rel='import' href='../mbh-conversation-item/mbh-conversation-item.html'>
+
+<dom-module id="mbh-conversation-list">
+  <template>
+    <style>
+      .conversations {
+        background-color: #ffffff;
+        box-shadow: 0 1px 4px #e0e0e0;
+        padding: 1.42857rem 1.42857rem;
+        border-radius: 5px;
+        position: relative;
+        display: block;
+      }
+
+      .list {
+        list-style: none;
+        padding: 0;
+        margin-top: 0;
+        margin-bottom: 0
+      }
+
+      mbh-conversation-item {
+        border: 0;
+        border-bottom-width: 1px;
+        border-color: #f7f7f7;
+        border-style: solid;
+        padding-top: 0.85714rem;
+        padding-bottom: 0.85714rem;
+      }
+      mbh-conversation-item:last-child {
+        border-bottom-width: 0;
+      }
+    </style>
+
+    <div class='conversations'>
+      <iron-list items="{{conversations}}" as='item'>
+        <template>
+          <mbh-conversation-item
+            class="list-item"
+            id=[[item.id]]
+            recipient=[[item.recipient]]
+            avatar=[[item.avatar]]
+            message=[[item.message]]
+            sent-time=[[item.sentTime]]>
+          </mbh-conversation-item>
+        </template>
+      </iron-list>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'mbh-conversation-list',
+      properties: {
+        conversations: {
+          type: Object,
+          value: function () {
+            return [
+              {
+                "id": 32726,
+                "recipient": "Nicole",
+                "avatar": "https://mbh-production.s3.amazonaws.com/profiles/avatars/000/129/661/medium/125038_5257974043_205206.jpg?1449647849",
+                "sentTime": 1474765489692,
+                "message": "I think you may be interested in the job that we just posted. Take a look!"
+              },
+              {
+                "id": 32152,
+                "recipient": "Steve",
+                "avatar": "https://mbh-production.s3.amazonaws.com/family_profiles/avatars/000/001/160/medium/IMG_20160423_130242.jpg?1463765376",
+                "sentTime": 1474765489692,
+                "message": "Your profile looks interesting, but is missing information. Could you add?"
+              },
+            ];
+          }
+        }
+      }
+    });
+  </script>
+</dom-module>
